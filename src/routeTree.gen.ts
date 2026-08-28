@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ElectriciansRouteImport } from './routes/electricians'
+import { Route as EmergencyRouteImport } from './routes/emergency'
 import { Route as PlumbersRouteImport } from './routes/plumbers'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const ElectriciansRoute = ElectriciansRouteImport.update({
   path: '/electricians',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmergencyRoute = EmergencyRouteImport.update({
+  id: '/emergency',
+  path: '/emergency',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlumbersRoute = PlumbersRouteImport.update({
   id: '/plumbers',
   path: '/plumbers',
@@ -32,30 +38,34 @@ const PlumbersRoute = PlumbersRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/electricians': typeof ElectriciansRoute
+  '/emergency': typeof EmergencyRoute
   '/plumbers': typeof PlumbersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/electricians': typeof ElectriciansRoute
+  '/emergency': typeof EmergencyRoute
   '/plumbers': typeof PlumbersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/electricians': typeof ElectriciansRoute
+  '/emergency': typeof EmergencyRoute
   '/plumbers': typeof PlumbersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/electricians' | '/plumbers'
+  fullPaths: '/' | '/electricians' | '/emergency' | '/plumbers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/electricians' | '/plumbers'
-  id: '__root__' | '/' | '/electricians' | '/plumbers'
+  to: '/' | '/electricians' | '/emergency' | '/plumbers'
+  id: '__root__' | '/' | '/electricians' | '/emergency' | '/plumbers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ElectriciansRoute: typeof ElectriciansRoute
+  EmergencyRoute: typeof EmergencyRoute
   PlumbersRoute: typeof PlumbersRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ElectriciansRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/emergency': {
+      id: '/emergency'
+      path: '/emergency'
+      fullPath: '/emergency'
+      preLoaderRoute: typeof EmergencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/plumbers': {
       id: '/plumbers'
       path: '/plumbers'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ElectriciansRoute: ElectriciansRoute,
+  EmergencyRoute: EmergencyRoute,
   PlumbersRoute: PlumbersRoute,
 }
 export const routeTree = rootRouteImport
